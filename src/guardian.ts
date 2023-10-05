@@ -42,7 +42,7 @@ guardianRoute.get('/', (req, res) => {
 //section
 guardianRoute.get('/section', (req, res) => {
     const section_url = 'https://content.guardianapis.com/sections?api-key=test';
-    callGuardianAPI('section', section_url).then(data => {
+    callGuardianAPI('sections', section_url).then(data => {
         res.json(data);
     })
 })
@@ -58,7 +58,7 @@ guardianRoute.get('/section/:sectionId', (req, res) => {
 //editions
 guardianRoute.get('/edition', (req, res) => {
     const edition_url = 'https://content.guardianapis.com/editions?api-key=test';
-    callGuardianAPI('edition', edition_url).then(data => {
+    callGuardianAPI('editions', edition_url).then(data => {
         res.json(data);
     })
 })
@@ -70,6 +70,28 @@ guardianRoute.get('/edition/:editionId', (req, res) => {
         res.json(data);
     })
 })
+
+//tags
+guardianRoute.get('/tags', (req, res) => {
+    const tag_url = 'https://content.guardianapis.com/tags?api-key=test';
+    callGuardianAPI('tags', tag_url).then(data => {
+        res.json(data);
+    })
+})
+
+guardianRoute.get('/tags/:tagId', (req, res) => {
+    const tagId = req.params.tagId;
+    const tag_url = `https://content.guardianapis.com/tags?q=${tagId}&api-key=test`;
+    callGuardianAPI('tag', tag_url).then(data => {
+        res.json(data);
+    })
+})
+
+//search'
+// guardianRoute.get('/search', (req, res) => {
+//     const search_query = req.query;
+
+// })
 
 module.exports = {
     guardianRoute
