@@ -87,11 +87,14 @@ guardianRoute.get('/tags/:tagId', (req, res) => {
     })
 })
 
-//search'
-// guardianRoute.get('/search', (req, res) => {
-//     const search_query = req.query;
-
-// })
+//search
+guardianRoute.get('/search/:query', (req, res) => {
+    const search_query = req.params.query;
+    const search_url = `https://content.guardianapis.com/search?q=${search_query}&api-key=test&format=json`;
+    callGuardianAPI('search', search_url).then(data => {
+        res.json(data);
+    })
+})
 
 module.exports = {
     guardianRoute

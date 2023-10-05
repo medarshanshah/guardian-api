@@ -81,10 +81,14 @@ exports.guardianRoute.get('/tags/:tagId', (req, res) => {
         res.json(data);
     });
 });
-//search'
-// guardianRoute.get('/search', (req, res) => {
-//     const search_query = req.query;
-// })
+//search
+exports.guardianRoute.get('/search/:query', (req, res) => {
+    const search_query = req.params.query;
+    const search_url = `https://content.guardianapis.com/search?q=${search_query}&api-key=test&format=json`;
+    (0, exports.callGuardianAPI)('search', search_url).then(data => {
+        res.json(data);
+    });
+});
 module.exports = {
     guardianRoute: exports.guardianRoute
 };
