@@ -89,6 +89,11 @@ exports.guardianRoute.get('/search/:query', (req, res) => {
         res.json(data);
     });
 });
+//single item
+exports.guardianRoute.get('/article/:articleId', (req, res) => {
+    const articleId = req.params.articleId;
+    const article_url = `https://content.guardianapis.com/${articleId}?api-key=test`;
+});
 module.exports = {
     guardianRoute: exports.guardianRoute
 };

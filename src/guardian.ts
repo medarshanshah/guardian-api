@@ -96,6 +96,13 @@ guardianRoute.get('/search/:query', (req, res) => {
     })
 })
 
+//single item
+guardianRoute.get('/article/:articleId', (req, res) => {
+    const articleId = req.params.articleId;
+    const article_url = `https://content.guardianapis.com/${articleId}?api-key=test`;
+    
+})
+
 module.exports = {
     guardianRoute
 }
