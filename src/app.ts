@@ -14,8 +14,7 @@ app.get('/', (req, res) => {
 app.get('/test', async (req, res) => {
     const data:object = await axios.get('https://content.guardianapis.com/search?q=debates&api-key=test')
     .then(response => {
-        console.log("status ---->  ", response.status)
-        console.log("response ---->  ",response)
+        console.log("status ---->  ", response.status);
         return response.data;
     })
     res.send(data);
