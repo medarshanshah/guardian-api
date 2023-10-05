@@ -47,10 +47,23 @@ exports.guardianRoute.get('/section', (req, res) => {
     });
 });
 exports.guardianRoute.get('/section/:sectionId', (req, res) => {
-    console.log(req.params.sectionId);
     const sectionId = req.params.sectionId;
     const section_url = `https://content.guardianapis.com/${sectionId}?api-key=test`;
     (0, exports.callGuardianAPI)('section', section_url).then(data => {
+        res.json(data);
+    });
+});
+//editions
+exports.guardianRoute.get('/edition', (req, res) => {
+    const edition_url = 'https://content.guardianapis.com/editions?api-key=test';
+    (0, exports.callGuardianAPI)('edition', edition_url).then(data => {
+        res.json(data);
+    });
+});
+exports.guardianRoute.get('/edition/:editionId', (req, res) => {
+    const editionId = req.params.editionId;
+    const edition_url = `https://content.guardianapis.com/editions?q=${editionId}&api-key=test`;
+    (0, exports.callGuardianAPI)('edition', edition_url).then(data => {
         res.json(data);
     });
 });

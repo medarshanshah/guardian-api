@@ -48,10 +48,25 @@ guardianRoute.get('/section', (req, res) => {
 })
 
 guardianRoute.get('/section/:sectionId', (req, res) => {
-    console.log(req.params.sectionId)
     const sectionId = req.params.sectionId;
     const section_url = `https://content.guardianapis.com/${sectionId}?api-key=test`;
     callGuardianAPI('section', section_url).then(data => {
+        res.json(data);
+    })
+})
+
+//editions
+guardianRoute.get('/edition', (req, res) => {
+    const edition_url = 'https://content.guardianapis.com/editions?api-key=test';
+    callGuardianAPI('edition', edition_url).then(data => {
+        res.json(data);
+    })
+})
+
+guardianRoute.get('/edition/:editionId', (req, res) => {
+    const editionId = req.params.editionId;
+    const edition_url = `https://content.guardianapis.com/editions?q=${editionId}&api-key=test`;
+    callGuardianAPI('edition', edition_url).then(data => {
         res.json(data);
     })
 })
