@@ -8,9 +8,7 @@ app.use(cors());
 
 const port = 3000;
 
-app.use('/', guardianRoute, () => {
-
-});
+app.use('/', guardianRoute);
 
 app.get('/test', async (req, res) => {
     const data:object = await axios.get('https://content.guardianapis.com/search?q=debates&api-key=test&format=json')

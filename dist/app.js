@@ -19,8 +19,7 @@ const guardian_1 = require("./guardian");
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 const port = 3000;
-app.use('/', guardian_1.guardianRoute, () => {
-});
+app.use('/', guardian_1.guardianRoute);
 app.get('/test', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const data = yield axios_1.default.get('https://content.guardianapis.com/search?q=debates&api-key=test&format=json')
         .then(response => {
