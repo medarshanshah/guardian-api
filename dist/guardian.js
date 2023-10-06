@@ -8,8 +8,6 @@ const axios_1 = __importDefault(require("axios"));
 const express_1 = require("express");
 exports.guardianRoute = (0, express_1.Router)();
 const validator = (id) => {
-    //     const splittedArray = sectionId.split("");
-    //     console.log(splittedArray);
     if (!id.includes('-') && !id.includes('_')) {
         return true; //no splitted text: eg; books        
     }
@@ -35,17 +33,6 @@ const callGuardianAPI = (route_origin, api_url) => {
     }
 };
 exports.callGuardianAPI = callGuardianAPI;
-// export const sections = () => {
-//     try {
-//         return axios.get('https://content.guardianapis.com/sections?api-key=test')
-//         .then(response => {
-//             console.log("sections: status::",response.status)
-//             return response.data.response.results;
-//         })
-//     } catch (error) {
-//         console.log(error);
-//     }
-// }
 //Routes
 //home
 exports.guardianRoute.get('/', (req, res) => {
