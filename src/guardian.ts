@@ -5,8 +5,7 @@ import { Router } from 'express';
 export const guardianRoute = Router();
 
 export const validator = (id:string) => {
-//     const splittedArray = sectionId.split("");
-//     console.log(splittedArray);
+    
     if(!id.includes('-')&&!id.includes('_')){
         return true;    //no splitted text: eg; books        
     }
@@ -30,18 +29,6 @@ export const callGuardianAPI = (route_origin:string, api_url:string) => {
         console.log(error);
     }
 }
-
-// export const sections = () => {
-//     try {
-//         return axios.get('https://content.guardianapis.com/sections?api-key=test')
-//         .then(response => {
-//             console.log("sections: status::",response.status)
-//             return response.data.response.results;
-//         })
-//     } catch (error) {
-//         console.log(error);
-//     }
-// }
 
 
 //Routes
