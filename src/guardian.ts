@@ -4,6 +4,21 @@ import { Router } from 'express';
 
 export const guardianRoute = Router();
 
+export const sectionId_validator = (sectionId:string) => {
+//     const splittedArray = sectionId.split("");
+//     console.log(splittedArray);
+    if(!sectionId.includes('-')&&!sectionId.includes('_')){
+        return true;    //no splitted text: eg; books        
+    }
+    else if(sectionId.includes('_')) {
+        return false;   // not kebab case
+    }
+    else {
+        const pattern = /(\w+)-(\w)([\w-]*)/;
+        return pattern.test(sectionId) && !sectionId.includes('_');
+    }
+};
+
 export const callGuardianAPI = (route_origin:string, api_url:string) => {
     try {
         return axios.get(api_url)
@@ -49,10 +64,12 @@ guardianRoute.get('/section', (req, res) => {
 
 guardianRoute.get('/section/:sectionId', (req, res) => {
     const sectionId = req.params.sectionId;
-    const section_url = `https://content.guardianapis.com/${sectionId}?api-key=test`;
-    callGuardianAPI('section', section_url).then(data => {
-        res.json(data);
-    })
+    if(sectionId_validator(sectionId)){
+        const section_url = `https://content.guardianapis.com/${sectionId}?api-key=test`;
+        callGuardianAPI('section', section_url).then(data => {
+            res.json(data);
+        })             
+    }
 })
 
 //editions
@@ -100,7 +117,9 @@ guardianRoute.get('/search/:query', (req, res) => {
 guardianRoute.get('/article/:articleId', (req, res) => {
     const articleId = req.params.articleId;
     const article_url = `https://content.guardianapis.com/${articleId}?api-key=test`;
-    
+    callGuardianAPI('search', article_url).then(data => {
+        res.json(data);
+    })
 })
 
 module.exports = {
