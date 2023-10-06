@@ -5,7 +5,7 @@ import { Router } from 'express';
 export const guardianRoute = Router();
 
 export const validator = (id:string) => {
-    
+
     if(!id.includes('-')&&!id.includes('_')){
         return true;    //no splitted text: eg; books        
     }
@@ -112,5 +112,7 @@ guardianRoute.get('/article/:articleId', (req, res) => {
 })
 
 module.exports = {
-    guardianRoute
+    guardianRoute,
+    validator,
+    callGuardianAPI
 }
