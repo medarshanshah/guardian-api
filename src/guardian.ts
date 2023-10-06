@@ -4,18 +4,18 @@ import { Router } from 'express';
 
 export const guardianRoute = Router();
 
-export const sectionId_validator = (sectionId:string) => {
+export const validator = (id:string) => {
 //     const splittedArray = sectionId.split("");
 //     console.log(splittedArray);
-    if(!sectionId.includes('-')&&!sectionId.includes('_')){
+    if(!id.includes('-')&&!id.includes('_')){
         return true;    //no splitted text: eg; books        
     }
-    else if(sectionId.includes('_')) {
+    else if(id.includes('_')) {
         return false;   // not kebab case
     }
     else {
         const pattern = /(\w+)-(\w)([\w-]*)/;
-        return pattern.test(sectionId) && !sectionId.includes('_');
+        return pattern.test(id) && !id.includes('_');
     }
 };
 
@@ -64,7 +64,7 @@ guardianRoute.get('/section', (req, res) => {
 
 guardianRoute.get('/section/:sectionId', (req, res) => {
     const sectionId = req.params.sectionId;
-    if(sectionId_validator(sectionId)){
+    if(validator(sectionId)){
         const section_url = `https://content.guardianapis.com/${sectionId}?api-key=test`;
         callGuardianAPI('section', section_url).then(data => {
             res.json(data);
@@ -98,10 +98,12 @@ guardianRoute.get('/tags', (req, res) => {
 
 guardianRoute.get('/tags/:tagId', (req, res) => {
     const tagId = req.params.tagId;
-    const tag_url = `https://content.guardianapis.com/tags?q=${tagId}&api-key=test`;
-    callGuardianAPI('tag', tag_url).then(data => {
-        res.json(data);
-    })
+    if(validator(tagId)){
+        const tag_url = `https://content.guardianapis.com/tags?q=${tagId}&api-key=test`;
+        callGuardianAPI('tag', tag_url).then(data => {
+            res.json(data);
+        })
+    }
 })
 
 //search
